@@ -1,0 +1,43 @@
+.fa-times{
+    color:#d9534f;
+    font-size: x-large;
+}
+.container{
+    margin-left: 10%;
+    margin-top: 5%;
+    margin-right: 10%;
+    width: 80%;
+}
+.fa-edit{
+    color: #0275d8;
+    font-size: x-large;
+}
+.list{
+    margin-top:20px;
+    margin-left:-40px;
+}
+.list-content ul li a{
+    float:right;
+}
+
+li{
+    list-style: none;
+    padding:20px;
+}
+i{
+    margin-right: 20px;
+}
+.form-inline{
+    justify-content: space-between;
+
+}
+.list-group-item:hover{
+    background-color: lightgray;
+}
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.125);
+}

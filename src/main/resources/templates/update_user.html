@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+<div align="center">
+    <h1>Add New User</h1>
+    <br />
+    <form th:action="@{/save_user}"  method="post">
+
+        <table>
+
+            <tr>
+                <td>Username:</td>
+                <td><input  type="text" th:field="*{user.username}" /></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input  type="password" th:field="*{user.password}" /></td>
+            </tr>
+
+            <tr>
+                <td>Status:</td>
+                <td><select class="form-control " th:field="*{user.enabled}">
+                    <option th:text="true" th:value="true">true</option>
+                    <option th:text="false" th:value="false">false</option>
+                </select></td>
+            </tr>
+
+            <tr>
+                <td>User Role</td>
+                <td><select class="form-control" id="status" th:field="*{user.user_role}">
+                    <option th:text="ADMIN" th:value="ADMIN">Admin</option>
+                    <option th:text="USER" th:value="USER">User</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="submit" class="btn btn-primary">Add User</button></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

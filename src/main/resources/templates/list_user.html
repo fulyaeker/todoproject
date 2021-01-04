@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul sec:authorize="hasAuthority('ADMIN')" class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/list_user">Add & List User</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/">List Todos</a>
+            </li>
+        </ul>
+        <form class="form-inline" th:action="@{/logout}" method="post">
+            <div sec:authorize="isAuthenticated()">
+                <b><span sec:authentication="name">Username</span></b> &nbsp;
+                <i><span sec:authentication="principal.authorities">Roles</span></i>
+            </div>
+            <button class="btn btn-outline-success" type="submit">Log out</button>
+        </form>
+    </div>
+</nav>
+<div class="container">
+
+    <h3>User List</h3>
+
+    <div class=" form-group float-left">
+        <form sec:authorize="hasAnyAuthority('ADMIN')" th:action="@{/new_user}" method="post">
+            <button type="submit" class="btn btn-primary">Add New User</button>
+        </form>
+    </div>
+
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Username</th>
+            <th scope="col">User-Role</th>
+            <th scope="col">Status</th>
+            <th></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${listUser}">
+            <td th:text="${user.id}">Id</td>
+            <td th:text="${user.username}">Username</td>
+            <td th:text="${user.user_role}">UserRole</td>
+            <td th:text="${user.enabled}">Status</td>
+            <td sec:authorize="hasAnyAuthority('ADMIN')" class="text-left">
+                <a th:href="@{'/update_user/' + ${user.id}}" ><i class="far fa-edit"></i></a>
+                <a th:href="@{'/delete_user/' + ${user.id}}"><i class="fas fa-times"></i></a></td>
+
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

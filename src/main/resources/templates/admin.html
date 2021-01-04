@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul sec:authorize="hasAnyAuthority('ADMIN')" class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/list_user}">Add & List User</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin}">List Todos</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
+            <div sec:authorize="isAuthenticated()">
+                <b><span sec:authentication="name">Username</span></b> &nbsp;
+                <i><span sec:authentication="principal.authorities">Roles</span></i>
+            </div>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
+        </form>
+    </div>
+</nav>
+<div class="container">
+
+    <h3>User Tasks List</h3>
+
+    <div class=" form-group float-left">
+        <form sec:authorize="hasAuthority('USER')" th:action="@{/add_todo}" method="post">
+            <button type="submit" class="btn btn-primary">Add New Task</button>
+        </form>
+
+
+        <select class="form-control" id="sort" required="true" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+
+            <option th:value="admin_asc">Date</option>
+
+        </select>
+
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Task</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="todo : ${listTodo}">
+            <td th:text="${todo.todo_name}">Task</td>
+            <td th:text="${todo.todo_date}">Task Date</td>
+            <td th:text="${todo.status}">Status</td>
+            <td></td>
+            <td sec:authorize="hasAnyAuthority('USER')">
+                <a th:href="@{'/update_todo/' + ${todo.todo_id}}" ><i class="far fa-edit"></i></a>
+                <a th:href="@{'/delete_todo/' + ${todo.todo_id}}"><i class="fas fa-times"></i></a></td>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

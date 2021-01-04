@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker({ minDate: -20, maxDate: "+1M +15D" });
+        } );
+    </script>
+
+</head>
+<body>
+<h1>Add Todo</h1>
+<br />
+<form action="#" th:action="@{/save_todo}" th:object="${todo}"
+      method="post">
+    <table border="0" cellpadding="10">
+        <tr>
+            <td class="mt-10">Todo:</td>
+            <td><input type="text" th:field="*{todo_name}" /></td>
+        </tr>
+        <tr>
+            <td>Date:</td>
+            <td><input type="text" id="datepicker"></td>
+        </tr>
+        <tr>
+            <td>Status:</td>
+            <td><select class="form-control" id="status" th:field="*{status}">
+                <option th:value="Completed" th:text="Completed" ></option>
+                <option th:value="Pending" th:text="Pending"></option>
+                <option th:value="Postponed" th:text="Postponed" ></option>
+            </select></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button type="submit" class="btn btn-primary">Add Todo</button></td>
+        </tr>
+    </table>
+</form>
+</div>
+
+
+
+</body>
+</html>
